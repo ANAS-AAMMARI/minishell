@@ -6,11 +6,12 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 09:46:34 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/13 17:28:18 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:29:29 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
+#include <stdio.h>
 
 static int	ft_count_word(char const *tosplit, char delim)
 {
@@ -51,21 +52,19 @@ static char	**free_alloc(char **str)
 	return (NULL);
 }
 
-int	ft_sqeep_sp(char const *s, char c, int single, int d)
+int	ft_sqeep_sp(const char *s, char c, int *single, int *d)
 {
-	int	len;
+	size_t	len;
 
-	while (*s && *s == c && (single % 2 == 0) && (d % 2 == 0))
-			s++;
 	len = 0;
 	while (s[len])
 	{
-		if (s[len] == c && (single % 2 == 0) && (d % 2 == 0))
+		if (s[len] == c && (*single % 2 == 0) && (*d % 2 == 0))
 			break ;
-		if (s[len] == '\'' && (d % 2 == 0))
-			single++;
-		if (s[len] == '"' && (single % 2 == 0))
-			d++;
+		if (s[len] == '\'' && (*d % 2 == 0))
+			(*single)++;
+		if (s[len] == '"' && (*single % 2 == 0))
+			*d += 1;
 		len++;
 	}
 	return (len);
@@ -78,13 +77,13 @@ char	**ft_splt(char const *s, char c, char **tab)
 	size_t		i;
 	size_t		len;
 
-	len = 0;
-	single = 0;
-	d = 0;
-	i = 0;
+	init(&single, &d, &i);
 	while (*s)
 	{
-		len = ft_sqeep_sp(s, c, single, d);
+		while (*s && *s == c && (single % 2 == 0) && (d % 2 == 0))
+			s++;
+		len = 0;
+		len = ft_sqeep_sp(s, c, &single, &d);
 		if (len != 0)
 		{
 			if (*s == '\'' || *s == '"')
@@ -96,8 +95,7 @@ char	**ft_splt(char const *s, char c, char **tab)
 			return (free_alloc(tab));
 		s += len;
 	}
-	tab[i] = NULL;
-	return (tab);
+	return (tab[i] = NULL, tab);
 }
 
 char	**ft_split(char const *s, char c)
@@ -111,3 +109,49 @@ char	**ft_split(char const *s, char c)
 		return (tab);
 	return (ft_splt(s, c, tab));
 }
+
+// char	**ft_split(char const *s, char c)
+// {
+// 	char		**tab;
+// 	size_t		i;
+// 	size_t		len;
+// 	int			single;
+// 	int			d;
+
+// 	i = 0;
+// 	single = 0;
+// 	d = 0;
+// 	if (!s)
+// 		return (0);
+// 	tab = (char **)malloc((ft_count_word(s, c) + 1) * sizeof(char *));
+// 	if (!tab)
+// 		return (tab);
+// 	while (*s)
+// 	{
+// 		len = 0;
+// 		while (*s && *s == c && (single % 2 == 0) && (d % 2 == 0))
+// 			s++;
+// 		while (s[len])
+// 		{
+// 			if (s[len] == c && single % 2 == 0 && d % 2 == 0)
+// 				break ;
+// 			if (s[len] == '\'' && (d % 2 == 0))
+// 				single++;
+// 			if (s[len] == '"' && (single % 2 == 0))
+// 				d++;
+// 			len++;
+// 		}
+// 		if (len != 0)
+// 		{
+// 			if (*s == '\'' || *s == '"')
+// 				tab[i++] = ft_substr(s + 1, 0, len - 2);
+// 			else
+// 				tab[i++] = ft_substr(s, 0, len);
+// 		}	
+// 		if (!tab[i - 1] && len != 0)
+// 			return (free_alloc(tab));
+// 		s += len;
+// 	}
+// 	tab[i] = NULL;
+// 	return (tab);
+// }
