@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:39:35 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/13 14:35:39 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:09:18 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int		check_quotes(char *str);
 char	*expand_env(char *str, char **env);
 int		double_quotes(char *str, int i, int *db);
 void	check_in_out(char *str);
-void	check_append_in_out(char *str);
+int		nbr_of_char(char *str, char c, int n, int ds);
 
 #endif

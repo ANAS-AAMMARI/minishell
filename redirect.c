@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:51:57 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/11 19:05:04 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:13:24 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	check_in_out(char *str)
 		else
 		{
 			ft_putchar_fd('`', 2);
-			ft_putchar_fd(str[check], 2);
+			ft_putstr_fd(&str[check], 2);
 			ft_putchar_fd('\'', 2);
 		}	
 		ft_putchar_fd('\n', 2);

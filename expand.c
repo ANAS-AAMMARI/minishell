@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:14:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/11 11:52:14 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:02:19 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	len_var(char *str, char **env, int *j)
 	*j += len_var;
 	while (env && env[i])
 	{
-		if (ft_strncmp(str, env[i], len_var) == 0)
+		if (ft_strncmp(str, env[i], len_var) == 0 && env[i][len_var] == '=')
 			return (ft_strlen(env[i] + len_var + 1));
 		i++;
 	}
@@ -76,7 +76,7 @@ int	get_var_env(char *str, char **env, int *j, char *cmdline)
 	*j += len_var;
 	while (env && env[i])
 	{
-		if (ft_strncmp(str, env[i], len_var) == 0)
+		if (ft_strncmp(str, env[i], len_var) == 0 && env[i][len_var] == '=')
 		{
 			len_value = ft_strlen(env[i] + len_var + 1);
 			ft_strlcpy(cmdline, env[i] + len_var + 1, len_value + 1);
@@ -87,34 +87,34 @@ int	get_var_env(char *str, char **env, int *j, char *cmdline)
 	return (0);
 }
 
-// Function: fill the string after expansion
+// Function: fill the string after expansion $
 char	*fill_cmdline(char *str, char **env, char *cmdline)
 {
 	int		i;
 	int		j;
-	int		dbl_quote;
+	int		db;
+	int		sg;
 
 	i = 0;
 	j = 0;
+	db = 0;
+	sg = 0;
 	if (str == NULL)
 		return (0);
-	double_quotes(str, i, &dbl_quote);
 	while (str[i])
-	{
-		if (str[i] == '$' && dbl_quote % 2 == 0)
+	{	
+		db = nbr_of_char(str, '"', i, sg);
+		sg = nbr_of_char(str, '\'', i, db);
+		if (str[i] == '$' && (db == 0 || db % 2 != 0)
+			&& (sg == 0 || sg % 2 == 0))
 		{
 			i++;
 			j += get_var_env(str + i, env, &i, cmdline + j);
 		}
 		else
-		{
-			cmdline[j] = str[i];
-			i++;
-			j++;
-		}
+			cmdline[j++] = str[i++];
 	}
-	cmdline[j] = '\0';
-	return (cmdline);
+	return (cmdline[j] = '\0', cmdline);
 }
 
 // Function: expand the string
@@ -124,6 +124,7 @@ char	*expand_env(char *str, char **env)
 	char	*cmdline;
 
 	lenght = ft_lenght(str, env);
+	printf("lenght: %d\n", lenght);
 	cmdline = malloc(sizeof(char) * lenght);
 	if (cmdline == NULL)
 		return (NULL);

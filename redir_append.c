@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:40:30 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/12 15:50:04 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:13:49 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	check_append_in_out(char *str)
 			ft_putstr_fd("newline'", 2);
 		else
 		{
-			ft_putchar_fd(str[check], 2);
+			ft_putstr_fd(&str[check], 2);
 			ft_putstr_fd("'", 2);
 		}
 		ft_putstr_fd("\n", 2);

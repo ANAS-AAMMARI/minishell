@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 09:57:56 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/15 16:11:53 by aaammari         ###   ########.fr       */
+/*   Created: 2023/02/15 14:31:11 by aaammari          #+#    #+#             */
+/*   Updated: 2023/02/15 15:09:07 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+int	nbr_of_char(char *str, char c, int n, int ds)
 {
-	char	*line;
+	int	i;
+	int	nbr;
 
-	(void)ac;
-	(void)av;
-	line = "''$USER'" ;
-	if (!check_quotes(line))
+	nbr = 0;
+	i = 0;
+	while (str[i] && i < n && ds % 2 == 0)
+	{
+		if (str[i] == c)
+			nbr++;
+		i++;
+	}
+	if (nbr % 2 == 0)
 		return (0);
-	line = expand_env(line, env);
-	printf("line:%s\n", line);
-	return (0);
+	return (nbr);
 }
