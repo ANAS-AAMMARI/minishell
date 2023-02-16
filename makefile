@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 18:45:14 by aaammari          #+#    #+#              #
-#    Updated: 2023/02/15 14:33:13 by aaammari         ###   ########.fr        #
+#    Updated: 2023/02/16 11:45:18 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@ LIB_LIBFT = libft/libft.a
 HEADER = libft/libft.h minishell.h
 
 NAME = minishell
-SRC =	minishell.c 	\
-		check_quotes.c	\
-		expand.c		\
-		redirect.c		\
-		redir_append.c	\
-		utils.c			\
+SRC =	minishell.c 		\
+		check_quotes.c		\
+		expand.c			\
+		redirect.c			\
+		redir_append.c		\
+		utils_dollar_qts.c	\
 
 OBJ = $(SRC:.c=.o)
 

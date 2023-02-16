@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:14:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/15 16:02:19 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:17:32 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,23 @@ int	get_var_env(char *str, char **env, int *j, char *cmdline)
 }
 
 // Function: fill the string after expansion $
-char	*fill_cmdline(char *str, char **env, char *cmdline)
+char	*fill_cmdline(char *str, char **env, char *cmdline, int status)
 {
 	int		i;
 	int		j;
 	int		db;
-	int		sg;
+	size_t	sg;
 
-	i = 0;
-	j = 0;
+	init(&i, &j, &sg);
 	db = 0;
-	sg = 0;
 	if (str == NULL)
 		return (0);
 	while (str[i])
 	{	
 		db = nbr_of_char(str, '"', i, sg);
 		sg = nbr_of_char(str, '\'', i, db);
+		if (str[i] == '$')
+			j += check_dollar(str, &i, status, cmdline + j);
 		if (str[i] == '$' && (db == 0 || db % 2 != 0)
 			&& (sg == 0 || sg % 2 == 0))
 		{
@@ -123,11 +123,13 @@ char	*expand_env(char *str, char **env)
 	int		lenght;
 	char	*cmdline;
 
+	if (str == NULL)
+		return (NULL);
 	lenght = ft_lenght(str, env);
-	printf("lenght: %d\n", lenght);
-	cmdline = malloc(sizeof(char) * lenght);
+	cmdline = malloc(sizeof(char) * lenght * 5);
 	if (cmdline == NULL)
 		return (NULL);
-	cmdline = fill_cmdline(str, env, cmdline);
+	ft_memset(cmdline, 0, lenght);
+	cmdline = fill_cmdline(str, env, cmdline, 1998);
 	return (cmdline);
 }

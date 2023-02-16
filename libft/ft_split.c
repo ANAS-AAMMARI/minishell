@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 09:46:34 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/14 10:29:29 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:50:59 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**ft_splt(char const *s, char c, char **tab)
 		if (len != 0)
 		{
 			if (*s == '\'' || *s == '"')
-				tab[i++] = ft_substr(s + 1, 0, len - 2);
+				tab[i++] = ft_strtrim(s, "'\"");
 			else
 				tab[i++] = ft_substr(s, 0, len);
 		}
@@ -144,7 +144,7 @@ char	**ft_split(char const *s, char c)
 // 		if (len != 0)
 // 		{
 // 			if (*s == '\'' || *s == '"')
-// 				tab[i++] = ft_substr(s + 1, 0, len - 2);
+// 				tab[i++] = ft_strtrim(s + 1, "'\"");
 // 			else
 // 				tab[i++] = ft_substr(s, 0, len);
 // 		}	
