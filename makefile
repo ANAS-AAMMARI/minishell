@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 18:45:14 by aaammari          #+#    #+#              #
-#    Updated: 2023/02/16 11:45:18 by aaammari         ###   ########.fr        #
+#    Updated: 2023/02/17 16:55:59 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	minishell.c 		\
 		redirect.c			\
 		redir_append.c		\
 		utils_dollar_qts.c	\
+		expand_utils.c		\
 
 OBJ = $(SRC:.c=.o)
 

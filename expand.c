@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:14:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/16 17:17:32 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:45:40 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	len_var(char *str, char **env, int *j)
 	len_var = 0;
 	if (!str || str[0] == '\0')
 		return (0);
-	while (str[len_var] && str[len_var] != ' ' && ft_isalnum(str[len_var]))
+	while (str[len_var] && str[len_var] != ' ' && str[len_var] != '$'
+		&& str[len_var] != '"' && str[len_var] != '\'')
 		len_var++;
 	*j += len_var;
 	while (env && env[i])
@@ -71,7 +72,10 @@ int	get_var_env(char *str, char **env, int *j, char *cmdline)
 	len_var = 0;
 	if (!str || str[0] == '\0')
 		return (0);
-	while (str[len_var] && str[len_var] != ' ' && ft_isalnum(str[len_var]))
+	j += check_digit(str, cmdline);
+	printf("test:\n");
+	while (str[len_var] && str[len_var] != ' ' && str[len_var] != '$'
+		&& str[len_var] != '"' && str[len_var] != '\'')
 		len_var++;
 	*j += len_var;
 	while (env && env[i])
@@ -94,22 +98,21 @@ char	*fill_cmdline(char *str, char **env, char *cmdline, int status)
 	int		j;
 	int		db;
 	size_t	sg;
+	int		l;
 
 	init(&i, &j, &sg);
 	db = 0;
-	if (str == NULL)
-		return (0);
 	while (str[i])
 	{	
 		db = nbr_of_char(str, '"', i, sg);
 		sg = nbr_of_char(str, '\'', i, db);
-		if (str[i] == '$')
-			j += check_dollar(str, &i, status, cmdline + j);
+		j += check_d(str, cmdline + j, &i, status);
 		if (str[i] == '$' && (db == 0 || db % 2 != 0)
 			&& (sg == 0 || sg % 2 == 0))
 		{
 			i++;
-			j += get_var_env(str + i, env, &i, cmdline + j);
+			l = get_var_env(str + i, env, &i, cmdline + j);
+			fillcmd_and_incj(cmdline, &j, &l);
 		}
 		else
 			cmdline[j++] = str[i++];
@@ -123,7 +126,7 @@ char	*expand_env(char *str, char **env)
 	int		lenght;
 	char	*cmdline;
 
-	if (str == NULL)
+	if (str == NULL || env == NULL)
 		return (NULL);
 	lenght = ft_lenght(str, env);
 	cmdline = malloc(sizeof(char) * lenght * 5);

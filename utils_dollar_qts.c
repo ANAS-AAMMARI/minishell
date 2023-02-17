@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:31:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/16 17:35:18 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:38:19 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	nbr_of_char(char *str, char c, int n, int ds)
 
 	nbr = 0;
 	i = 0;
-	while (str[i] && i < n && ds % 2 == 0)
+	while (str[i] && i < n && ds % 2 == 0 && ds != 0)
 	{
 		if (str[i] == c)
 			nbr++;
