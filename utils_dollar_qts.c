@@ -6,28 +6,18 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:31:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/17 16:38:19 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:07:23 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	nbr_of_char(char *str, char c, int n, int ds)
+void	nbr_of_char(char *str, int *d, int *s, int i)
 {
-	int	i;
-	int	nbr;
-
-	nbr = 0;
-	i = 0;
-	while (str[i] && i < n && ds % 2 == 0 && ds != 0)
-	{
-		if (str[i] == c)
-			nbr++;
-		i++;
-	}
-	if (nbr % 2 == 0)
-		return (0);
-	return (nbr);
+	if (str[i] == '\'' && (*d % 2 == 0))
+		*s += 1;
+	if (str[i] == '"' && (*s % 2 == 0))
+		*d += 1;
 }
 
 int	fill_cmd(char *cmd, int status)

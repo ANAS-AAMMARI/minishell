@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:14:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/17 17:45:40 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:25:53 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	len_var(char *str, char **env, int *j)
 	len_var = 0;
 	if (!str || str[0] == '\0')
 		return (0);
-	while (str[len_var] && str[len_var] != ' ' && str[len_var] != '$'
-		&& str[len_var] != '"' && str[len_var] != '\'')
+	while (str[len_var] && str[len_var] != ' ' && ft_isalnum(str[len_var]))
 		len_var++;
 	*j += len_var;
 	while (env && env[i])
@@ -71,11 +70,10 @@ int	get_var_env(char *str, char **env, int *j, char *cmdline)
 	i = 0;
 	len_var = 0;
 	if (!str || str[0] == '\0')
-		return (0);
-	j += check_digit(str, cmdline);
-	printf("test:\n");
-	while (str[len_var] && str[len_var] != ' ' && str[len_var] != '$'
-		&& str[len_var] != '"' && str[len_var] != '\'')
+		return (-1);
+	if (ft_isdigit(str[0]))
+		return (-2);
+	while (str[len_var] && str[len_var] != ' ' && ft_isalnum(str[len_var]))
 		len_var++;
 	*j += len_var;
 	while (env && env[i])
@@ -96,23 +94,22 @@ char	*fill_cmdline(char *str, char **env, char *cmdline, int status)
 {
 	int		i;
 	int		j;
-	int		db;
-	size_t	sg;
 	int		l;
+	int		s;
+	int		d;
 
-	init(&i, &j, &sg);
-	db = 0;
+	init_var(&i, &j, &s, &d);
 	while (str[i])
 	{	
-		db = nbr_of_char(str, '"', i, sg);
-		sg = nbr_of_char(str, '\'', i, db);
-		j += check_d(str, cmdline + j, &i, status);
-		if (str[i] == '$' && (db == 0 || db % 2 != 0)
-			&& (sg == 0 || sg % 2 == 0))
+		nbr_of_char(str, &d, &s, i);
+		if (s % 2 == 0)
+			j += check_d(str, cmdline + j, &i, status);
+		if (str[i] == '$' && (s % 2 == 0))
 		{
 			i++;
 			l = get_var_env(str + i, env, &i, cmdline + j);
-			fillcmd_and_incj(cmdline, &j, &l);
+			printf("l: %d\n", l);
+			fillcmd_and_incj(cmdline, &j, &l, &i);
 		}
 		else
 			cmdline[j++] = str[i++];

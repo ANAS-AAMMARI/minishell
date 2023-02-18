@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:57:56 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/17 17:41:20 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:27:25 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	line = "\"''\"$4uu $USER $" ;
+line = "''\"\"$JKDFHJK$$$6u6" ;
 	if (!check_quotes(line))
 		return (0);
 	line = expand_env(line, env);
