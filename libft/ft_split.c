@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 09:46:34 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/15 17:50:59 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:54:37 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**ft_splt(char const *s, char c, char **tab)
 		if (len != 0)
 		{
 			if (*s == '\'' || *s == '"')
-				tab[i++] = ft_strtrim(s, "'\"");
+				tab[i++] = delete_quetes(s, len);
 			else
 				tab[i++] = ft_substr(s, 0, len);
 		}
@@ -110,6 +110,51 @@ char	**ft_split(char const *s, char c)
 	return (ft_splt(s, c, tab));
 }
 
+// char	**ft_split(char const *s, char c)
+// {
+// 	char		**tab;
+// 	size_t		i;
+// 	size_t		len;
+// 	int			single;
+// 	int			d;
+
+// 	i = 0;
+// 	single = 0;
+// 	d = 0;
+// 	if (!s)
+// 		return (0);
+// 	tab = (char **)malloc((ft_count_word(s, c) + 1) * sizeof(char *));
+// 	if (!tab)
+// 		return (tab);
+// 	while (*s)
+// 	{
+// 		len = 0;
+// 		while (*s && *s == c && (single % 2 == 0) && (d % 2 == 0))
+// 			s++;
+// 		while (s[len])
+// 		{
+// 			if (s[len] == c && single % 2 == 0 && d % 2 == 0)
+// 				break ;
+// 			if (s[len] == '\'' && (d % 2 == 0))
+// 				single++;
+// 			if (s[len] == '"' && (single % 2 == 0))
+// 				d++;
+// 			len++;
+// 		}
+// 		if (len != 0)
+// 		{
+// 			if (*s == '\'' || *s == '"')
+// 				tab[i++] = ft_strtrim(s + 1, "'\"");
+// 			else
+// 				tab[i++] = ft_substr(s, 0, len);
+// 		}	
+// 		if (!tab[i - 1] && len != 0)
+// 			return (free_alloc(tab));
+// 		s += len;
+// 	}
+// 	tab[i] = NULL;
+// 	return (tab);
+// }
 // char	**ft_split(char const *s, char c)
 // {
 // 	char		**tab;

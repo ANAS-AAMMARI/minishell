@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   one_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 10:07:18 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/19 13:53:13 by aaammari         ###   ########.fr       */
+/*   Created: 2023/02/19 11:16:40 by aaammari          #+#    #+#             */
+/*   Updated: 2023/02/19 11:17:28 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<stdlib.h>
-#include"libft.h"
+#include "minishell.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+int	one_cmd(char *cmd, t_list *env)
 {
-	int	b;
+	char	**args;
+	int		ret;
 
-	if (!s1)
-		return (0);
-	while (*s1 && ft_strchr(set, *s1))
-		s1++;
-	b = ft_strlen(s1);
-	while (b && ft_strchr(set, s1[b]))
-		b--;
-	return (ft_substr(s1, 0, b + 1));
+	args = ft_split(cmd, ' ');
+	if (args == NULL)
+		return (1);
+	ret = execute(args, env);
+	free_array(args);
+	return (ret);
 }

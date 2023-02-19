@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:14:37 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/18 18:25:53 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:22:49 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char	*fill_cmdline(char *str, char **env, char *cmdline, int status)
 		{
 			i++;
 			l = get_var_env(str + i, env, &i, cmdline + j);
-			printf("l: %d\n", l);
 			fillcmd_and_incj(cmdline, &j, &l, &i);
 		}
 		else
