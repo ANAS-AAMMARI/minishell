@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   one_cmd.c                                          :+:      :+:    :+:   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:40 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/20 09:11:19 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:02:58 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,30 +100,66 @@ void	ft_execve(char **cmd, char **env)
 	free(path);
 }
 
-void	simple_pipe(char **cmd1, char **cmd2, char **env)
-{
-	int	fd[2];
-	int	id1;
-	int	id2;
+// void	simple_pipe(char **cmd1, char **cmd2, char **env)
+// {
+// 	int	fd[2];
+// 	int	id1;
+// 	int	id2;
 
-	pipe(fd);
-	id1 = fork();
-	if (id1 == 0)
+// 	if (pipe(fd) == -1)
+// 		return ;
+// 	id1 = fork();
+// 	if (id1 == -1)
+// 		return ;
+// 	if (id1 == 0)
+// 	{
+// 		dup2(fd[1], 1);
+// 		close(fd[0]);
+// 		ft_execve(cmd1, env);
+// 		exit(0);
+// 	}
+// 	id2 = fork();
+// 	if (id2 == -1)
+// 		return ;
+// 	if (id2 == 0)
+// 	{
+// 		dup2(fd[0], 0);
+// 		close(fd[1]);
+// 		ft_execve(cmd2, env);
+// 		exit(0);
+// 	}
+// 	wait(NULL);
+// 	close(fd[1]);
+// 	close(fd[0]);
+// }
+
+void	ft_exec_pipe(char **cmds, char **env)
+{
+	int		i;
+	char	**cmd;
+	int		fd[2];
+
+	i = 0;
+	while (cmds[i + 1])
 	{
-		dup2(fd[1], 1);
-		close(fd[0]);
-		ft_execve(cmd1, env);
-		exit(0);
+		cmd = ft_split(cmds[i], ' ');
+		if (pipe(fd) == -1)
+			return ;
+		if (fork() == 0)
+		{
+			dup2(fd[1], 1);
+			close(fd[0]);
+			ft_execve(cmd, env);
+			exit(0);
+		}
+		else
+		{
+			dup2(fd[0], 0);
+			close(fd[1]);
+		}
+		ft_free(cmd);
+		i++;
 	}
-	id2 = fork();
-	if (id2 == 0)
-	{
-		dup2(fd[0], 0);
-		close(fd[1]);
-		ft_execve(cmd2, env);
-		exit(0);
-	}
-	wait(NULL);
-	close(fd[1]);
-	close(fd[0]);
+	cmd = ft_split(cmds[i], ' ');
+	ft_execve(cmd, env);
 }
