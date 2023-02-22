@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:39:35 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/21 18:49:58 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:46:18 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		check_digit(char *str, char *cmdline);
 void	init_var(int *var1, int *var2, int *var3, int *var4);
 void	ft_execve(char **cmd, char **env);
 void	ft_exec_pipe(char **cmds, char **env);
+void	ft_free(char **args);
 
 #endif
