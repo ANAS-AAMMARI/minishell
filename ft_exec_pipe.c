@@ -6,49 +6,40 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 10:45:42 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/22 11:12:20 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:57:28 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**pipes(char **cmds, char **env, int fd[2], char **cmd)
+void	pipes(char **cmds, char **env, char **cmd)
 {
-	int		i;
+	int	i;
+	int	fd[2];
 
 	i = 0;
 	while (cmds[i + 1])
 	{
 		cmd = ft_split(cmds[i], ' ');
 		if (pipe(fd) == -1)
-			return (NULL);
-		if (fork() == 0)
-		{
-			dup2(fd[1], 1);
-			close(fd[0]);
-			ft_execve(cmd, env);
-			exit(0);
-		}
-		else
-		{
-			dup2(fd[0], 0);
-			close(fd[1]);
-		}
+			return ;
+		ft_execve(cmd, env, fd);
 		ft_free(cmd);
 		i++;
 	}
-	return (ft_split(cmds[i], ' '));
+	cmd = ft_split(cmds[i], ' ');
+	ft_execve(cmd, env, fd);
+	wait(NULL);
+	ft_free(cmd);
 }
 
 void	ft_exec_pipe(char **cmds, char **env)
 {
 	char	**cmd;
-	int		fd[2];
 
+	cmd = NULL;
 	if (!cmds || !*cmds || !env || !*env)
 		return ;
-	cmd = NULL;
-	cmd = pipes(cmds, env, fd, cmd);
-	ft_execve(cmd, env);
+	pipes(cmds, env, cmd);
 	ft_free(cmds);
 }

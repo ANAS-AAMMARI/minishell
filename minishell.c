@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:57:56 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/22 11:15:12 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:05:58 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**args;
-	int		ret;
 
-	ret = 0;
 	(void)ac;
 	(void)av;
-	line = "ls -l | grep a | wc -l | grep 1 | wc -l" ;
+	line = "cat | ls";
 	if (!check_quotes(line))
 		return (0);
 	line = expand_env(line, env);
