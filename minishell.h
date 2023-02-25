@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:39:35 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/22 17:25:51 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:39:06 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "readline/history.h"
 # include "libft/libft.h"
 # include "unistd.h"
+# include "sys/wait.h"
+# include "signal.h"
 # include "fcntl.h"
 
 int		check_quotes(char *str);
@@ -35,5 +37,9 @@ void	init_var(int *var1, int *var2, int *var3, int *var4);
 void	ft_execve(char **cmd, char **env, int fd[2]);
 void	ft_exec_pipe(char **cmds, char **env);
 void	ft_free(char **args);
+void	one_cmd(char **cmd, char **env);
+void	print_error(char *str);
+void	fork_and_exec(char **cmd, char **env, int fd[2], char *path);
+int		exec_pipe(char **cmds, char **env);
 
 #endif
