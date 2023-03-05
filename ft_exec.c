@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:40 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/25 15:24:38 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:56:40 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_execve(char **cmd, char **env, int fd[2])
 	{
 		free(path);
 		free(cmd);
-		ft_putendl_fd("minishell: command not found", 2);
+		ft_putendl_fd("minishell: command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	fork_and_exec(cmd, env, fd, path);
@@ -115,7 +115,7 @@ void	one_cmd(char **cmd, char **env)
 	if (id == 0)
 	{
 		execve(path, cmd, env);
-		print_error(*cmd);
+		print_error(*cmd, ": command not found\n");
 		exit(0);
 	}
 	else

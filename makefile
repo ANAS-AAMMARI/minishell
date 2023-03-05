@@ -6,7 +6,7 @@
 #    By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 18:45:14 by aaammari          #+#    #+#              #
-#    Updated: 2023/02/25 15:14:41 by aaammari         ###   ########.fr        #
+#    Updated: 2023/03/05 16:42:31 by aaammari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,11 @@ SRC =	minishell.c 		\
 		ft_exec.c			\
 		ft_exec_pipe.c		\
 		utils_exec.c		\
+		redirections.c		\
+		builtins_cmd.c		\
+		ft_cd.c				\
+		ft_unset.c			\
+		env_utils.c			\
 
 OBJ = $(SRC:.c=.o)
 

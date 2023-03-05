@@ -6,18 +6,18 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:31:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/25 16:41:20 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:56:56 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // print the error message
-void	print_error(char *str)
+void	print_error(char *str, char *str2)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": command not found\n", 2);
+	ft_putstr_fd(str2, 2);
 }
 
 void	fork_and_exec(char **cmd, char **env, int fd[2], char *path)
@@ -28,7 +28,7 @@ void	fork_and_exec(char **cmd, char **env, int fd[2], char *path)
 	if (id == -1)
 	{
 		free(path);
-		ft_putendl_fd("minishell: fork failed", 2);
+		ft_putendl_fd("minishell: fork failed\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (id == 0)
@@ -39,7 +39,7 @@ void	fork_and_exec(char **cmd, char **env, int fd[2], char *path)
 		close(fd[1]);
 		if (execve(path, cmd, env) == -1)
 			exit(EXIT_FAILURE);
-		print_error(*cmd);
+		print_error(*cmd, ": command not found\n");
 		exit(0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:39:35 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/25 16:39:06 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:19:08 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,16 @@ void	ft_execve(char **cmd, char **env, int fd[2]);
 void	ft_exec_pipe(char **cmds, char **env);
 void	ft_free(char **args);
 void	one_cmd(char **cmd, char **env);
-void	print_error(char *str);
+void	print_error(char *str, char *str2);
 void	fork_and_exec(char **cmd, char **env, int fd[2], char *path);
 int		exec_pipe(char **cmds, char **env);
+void	ft_pwd(void);
+void	set_env(char *name, char *value, char **env);
+void	ft_env(char **env);
+char	**ft_realloc(char **env, int size);
+char	**new_env(char **env);
+void	check_unset_export_arg(char **args);
+char	**new_env(char **env);
+char	*get_env(char *name, char **env);
 
 #endif
