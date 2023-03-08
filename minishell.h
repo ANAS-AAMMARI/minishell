@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:39:35 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/05 18:19:08 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:57:59 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 # include "sys/wait.h"
 # include "signal.h"
 # include "fcntl.h"
+# include "errno.h"
+# include "string.h"
 
+int		g_status;
 int		check_quotes(char *str);
 char	*expand_env(char *str, char **env);
 int		double_quotes(char *str, int i, int *db);
@@ -41,13 +44,17 @@ void	one_cmd(char **cmd, char **env);
 void	print_error(char *str, char *str2);
 void	fork_and_exec(char **cmd, char **env, int fd[2], char *path);
 int		exec_pipe(char **cmds, char **env);
-void	ft_pwd(void);
+void	ft_pwd(char **args);
 void	set_env(char *name, char *value, char **env);
-void	ft_env(char **env);
+void	ft_env(char **env, char **args);
+void	ft_echo(char **args);
+void	ft_cd(char **args, char **env);
+void	ft_exit(short status);
+void	ft_export(char **args, char ***env);
+char	**ft_unset(char **args, char **env);
 char	**ft_realloc(char **env, int size);
 char	**new_env(char **env);
-void	check_unset_export_arg(char **args);
-char	**new_env(char **env);
 char	*get_env(char *name, char **env);
+char	**ft_add_line(char **env, char *line);
 
 #endif

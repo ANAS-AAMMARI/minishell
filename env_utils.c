@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:17:46 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/04 13:32:22 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:17:01 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,18 @@ char	**new_env(char **env)
 		i++;
 	}
 	new_env[i] = NULL;
+	return (new_env);
+}
+
+char	**ft_add_line(char **env, char *line)
+{
+	char	**new_env;
+	int		i;
+
+	i = 0;
+	new_env = ft_realloc(env, 1);
+	new_env[i] = ft_strdup(line);
+	new_env[i + 1] = NULL;
+	ft_free(env);
 	return (new_env);
 }

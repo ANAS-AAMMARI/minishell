@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:31:11 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/03 12:56:56 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:33:58 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 void	print_error(char *str, char *str2)
 {
 	ft_putstr_fd("minishell: ", 2);
+	str = ft_strjoin(str, ": ");
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(str2, 2);
+	free(str);
 }
 
 void	fork_and_exec(char **cmd, char **env, int fd[2], char *path)

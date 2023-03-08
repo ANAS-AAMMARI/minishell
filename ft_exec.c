@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:40 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/03 12:56:40 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:28:03 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ void	one_cmd(char **cmd, char **env)
 		print_error(*cmd, ": command not found\n");
 		exit(0);
 	}
-	else
-		waitpid(id, NULL, 0);
 	free(path);
 }
 

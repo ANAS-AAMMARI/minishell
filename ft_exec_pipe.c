@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 10:45:42 by aaammari          #+#    #+#             */
-/*   Updated: 2023/02/25 16:39:13 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:28:12 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	pipes(char **cmds, char **env)
 	i = exec_pipe(cmds, env);
 	dup2(fd_in, 0);
 	dup2(fd_out, 1);
-	while (i--)
+	while (i-- >= 0)
 		wait(NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:02:54 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/03 16:09:47 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:35:23 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,52 @@ void	set_env(char *name, char *value, char **env)
 	}
 }
 
-void	ft_cd(char **args, char **env)
+int	check(char **args, char **env)
 {
 	char	*home;
 	char	*oldpwd;
-	char	*pwd;
 
 	if (!args[1])
 	{
 		home = get_env("HOME", env);
 		if (!home)
-			return ;
-		if (chdir(home) == -1)
-			return ;
+			return (0);
 		free(home);
 	}
-	else if (ft_strncmp(args[1], "-", 1) == 0)
+	else if (args[1][0] == '-' && args[1][1] == '\0')
 	{
 		oldpwd = get_env("OLDPWD", env);
-		chdir(oldpwd);
+		if (!oldpwd)
+			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), 0);
+		if (chdir(oldpwd) == -1)
+			return (0);
 		free(oldpwd);
 	}
 	else
 		if (chdir(args[1]) == -1)
-			return ;
+			return (0);
+	return (1);
+}
+
+void	ft_cd(char **args, char **env)
+{
+	char	*pwd;
+	char	*tmp;
+
+	if (args[1] && args[1][0] == '-' && args[1][1] != '\0')
+	{
+		tmp = ft_strjoin(args[1], ": invalid option");
+		print_error("cd", tmp);
+		return ;
+	}
+	if (!check(args, env))
+		return ;
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		print_error("cd", strerror(errno));
+		exit(1);
+	}
 	set_env("OLDPWD", pwd, env);
 	free(pwd);
 }

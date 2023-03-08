@@ -6,13 +6,13 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:39:18 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/05 16:58:57 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:33:07 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_unset_export_arg(char **args)
+void	check_unset_arg(char **args)
 {
 	int		i;
 	char	*tmp;
@@ -66,17 +66,14 @@ char	**ft_remove_line(char **env, int line)
 	return (new_env);
 }
 
-char	**ft_unset(char **args, char **env)
+char	**ft_uns(char **args, char **env)
 {
 	int		i;
 	int		j;
 	int		k;
 
-	if (!args || !env || *args == NULL || *env == NULL)
-		return (env);
-	i = 0;
-	check_unset_export_arg(args);
-	while (args[++i])
+	i = 1;
+	while (args[i])
 	{
 		j = 0;
 		while (env[j])
@@ -91,6 +88,24 @@ char	**ft_unset(char **args, char **env)
 			}
 			j++;
 		}
+		i++;
 	}
 	return (env);
+}
+
+char	**ft_unset(char **args, char **env)
+{
+	char	*tmp;
+
+	if (!args || !env || *args == NULL || *env == NULL)
+		return (NULL);
+	if (args[1][0] == '-' && args[1][1] != '\0')
+	{
+		tmp = ft_strjoin(args[1], ": invalid option");
+		print_error("unset", tmp);
+		free(tmp);
+		return (NULL);
+	}	
+	check_unset_arg(args);
+	return (ft_uns(args, env));
 }
