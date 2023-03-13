@@ -6,11 +6,11 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:22:55 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/08 15:23:28 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:09:43 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../headers/executions.h"
 
 void	ft_echo(char **args)
 {
@@ -48,14 +48,14 @@ void	ft_pwd(char **args)
 	if (args[1][0] == '-' && args[1][1] != '\0')
 	{
 		tmp = ft_strjoin(args[1], ": invalid option");
-		print_error("pwd", tmp);
+		print_err("pwd", tmp);
 		free(tmp);
 		return ;
 	}
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
-		print_error("pwd", strerror(errno));
+		print_err("pwd", strerror(errno));
 		exit(1);
 	}
 	ft_putendl_fd(pwd, 1);
@@ -69,7 +69,7 @@ void	ft_env(char **env, char **args)
 	i = 0;
 	if (args[1])
 	{
-		print_error("env", "has no arguments");
+		print_err("env", "has no arguments");
 		return ;
 	}
 	while (env[i])

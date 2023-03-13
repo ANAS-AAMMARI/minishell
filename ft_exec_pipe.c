@@ -6,13 +6,13 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 10:45:42 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/06 17:28:12 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:58:11 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include  "../headers/executions.h"
 
-void	pipes(char **cmds, char **env)
+void	pipes(t_cmd *cmds, char **env)
 {
 	int		i;
 	int		fd_in;
@@ -27,9 +27,9 @@ void	pipes(char **cmds, char **env)
 		wait(NULL);
 }
 
-void	ft_exec_pipe(char **cmds, char **env)
+void	ft_exec_pipe(t_cmd *cmds, char **env)
 {
-	if (!cmds || !*cmds || !env || !*env)
+	if (!cmds || !env || !*env)
 		return ;
 	pipes(cmds, env);
 	ft_free(cmds);

@@ -6,11 +6,11 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:02:54 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/08 17:35:23 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:12:24 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include  "../headers/executions.h"
 
 char	*get_env(char *name, char **env)
 {
@@ -89,7 +89,7 @@ void	ft_cd(char **args, char **env)
 	if (args[1] && args[1][0] == '-' && args[1][1] != '\0')
 	{
 		tmp = ft_strjoin(args[1], ": invalid option");
-		print_error("cd", tmp);
+		print_err("cd", tmp);
 		return ;
 	}
 	if (!check(args, env))
@@ -97,7 +97,7 @@ void	ft_cd(char **args, char **env)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		print_error("cd", strerror(errno));
+		print_err("cd", strerror(errno));
 		exit(1);
 	}
 	set_env("OLDPWD", pwd, env);

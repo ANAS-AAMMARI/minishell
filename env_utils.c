@@ -6,11 +6,11 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:17:46 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/06 16:17:01 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/11 13:59:55 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include  "../headers/executions.h"
 
 char	**ft_realloc(char **env, int size)
 {
@@ -30,7 +30,7 @@ char	**ft_realloc(char **env, int size)
 		i++;
 	}
 	new_env[i] = NULL;
-	ft_free(env);
+	ft_freee(env);
 	return (new_env);
 }
 
@@ -64,6 +64,6 @@ char	**ft_add_line(char **env, char *line)
 	new_env = ft_realloc(env, 1);
 	new_env[i] = ft_strdup(line);
 	new_env[i + 1] = NULL;
-	ft_free(env);
+	ft_freee(env);
 	return (new_env);
 }

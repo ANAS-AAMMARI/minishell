@@ -6,11 +6,11 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:39:18 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/08 15:33:07 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/11 14:01:21 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include  "../headers/executions.h"
 
 void	check_unset_arg(char **args)
 {
@@ -62,7 +62,7 @@ char	**ft_remove_line(char **env, int line)
 		i++;
 	}
 	new_env[j] = NULL;
-	ft_free(env);
+	ft_freee(env);
 	return (new_env);
 }
 
@@ -102,7 +102,7 @@ char	**ft_unset(char **args, char **env)
 	if (args[1][0] == '-' && args[1][1] != '\0')
 	{
 		tmp = ft_strjoin(args[1], ": invalid option");
-		print_error("unset", tmp);
+		print_err("unset", tmp);
 		free(tmp);
 		return (NULL);
 	}	

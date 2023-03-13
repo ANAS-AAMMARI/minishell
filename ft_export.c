@@ -6,11 +6,11 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:21:28 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/08 11:47:23 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/11 14:01:15 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../headers/executions.h"
 
 void	check_arg(char *arg)
 {
@@ -53,7 +53,7 @@ char	**ft_change_line(char **env, char *line, char *arg)
 		}
 		i++;
 	}
-	ft_free(env);
+	ft_freee(env);
 	return (nw_env);
 }
 

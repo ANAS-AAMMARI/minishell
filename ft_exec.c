@@ -6,14 +6,14 @@
 /*   By: aaammari <aaammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:16:40 by aaammari          #+#    #+#             */
-/*   Updated: 2023/03/06 17:28:03 by aaammari         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:34:02 by aaammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include  "../headers/executions.h"
 
 // free the array of strings
-void	ft_free(char **args)
+void	ft_freee(char **args)
 {
 	int	i;
 
@@ -21,9 +21,11 @@ void	ft_free(char **args)
 	while (args[i])
 	{
 		free(args[i]);
+		args[i] = NULL;
 		i++;
 	}
 	free(args);
+	args = NULL;
 }
 
 // get the path of the command to execute
@@ -77,7 +79,8 @@ char	*ft_path(char **cmd, char **env)
 			break ;
 		i++;
 	}
-	ft_free(args);
+	if (args)
+		ft_freee(args);
 	return (tmp);
 }
 
@@ -89,8 +92,8 @@ void	ft_execve(char **cmd, char **env, int fd[2])
 	path = ft_path(cmd, env);
 	if (!path || !*path)
 	{
-		free(path);
-		free(cmd);
+		if (cmd)
+			ft_freee(cmd);
 		ft_putendl_fd("minishell: command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
@@ -100,6 +103,7 @@ void	ft_execve(char **cmd, char **env, int fd[2])
 	close(fd[1]);
 	close(fd[0]);
 	free(path);
+	free(cmd);
 }
 
 // execute a single command (no pipes)
@@ -110,15 +114,20 @@ void	one_cmd(char **cmd, char **env)
 
 	path = ft_path(cmd, env);
 	if (!path)
+	{
+		ft_freee(cmd);
+		print_err(*cmd, "command not found\n");
 		return ;
+	}
 	id = fork();
 	if (id == 0)
 	{
 		execve(path, cmd, env);
-		print_error(*cmd, ": command not found\n");
+		print_err(*cmd, "command not found\n");
 		exit(0);
 	}
 	free(path);
+	free(cmd);
 }
 
 // void	ft_execve(char **cmd, char **env, int fd[2])
